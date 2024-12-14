@@ -1,32 +1,24 @@
 from task_1 import Car, Tree, SocialNetwork
 
-
-def main():
+if __name__ == "__main__":
     try:
-        car = Car(make="Toyota", model="Corolla", year=2023, color="Red")
-        tree = Tree(height=15.0, species="Oak", age=30)
-        social_network = SocialNetwork(name="TwitterClone", num_users=100000)
-    except TypeError as e:
+        car = Car("Toyota", "Camry", 2023)
+        tree = Tree(10.0, "Oak")
+        social_network = SocialNetwork("FacebookClone", 2000000)
+    except Exception as e:
         print(f"Ошибка при создании объекта: {e}")
 
     try:
-        car.change_color(new_color="Blue")  # Изменение цвета машины
-        print(f"Новый цвет автомобиля: {car.get_info()}")
-    except TypeError as e:
-        print(f"Ошибка: неправильные данные")
+        car.change_color("Red")  # Попробуем изменить цвет автомобиля
+    except ValueError as e:
+        print(f"Ошибка: невозможно изменить цвет автомобиля")
 
     try:
-        tree.grow(years=5)  # Увеличение возраста дерева
-        print(f"Текущая высота и возраст дерева: {tree.get_height_and_age()}")
-    except TypeError as e:
-        print(f"Ошибка: неправильные данные")
+        tree.grow(-5)  # Попытаться увеличить возраст дерева на отрицательное количество лет
+    except ValueError as e:
+        print(f"Ошибка: неправильное значение возраста")
 
     try:
-        social_network.add_users(num_new_users=500)  # Добавление новых пользователей
-        print(f"Текущее количество пользователей: {social_network.get_user_count()}")
-    except TypeError as e:
+        social_network.add_users(-100)  # Вызвать метод с некорректным количеством новых пользователей
+    except ValueError as e:
         print(f"Ошибка: неправильные данные")
-
-
-if __name__ == "__main__":
-    main()
