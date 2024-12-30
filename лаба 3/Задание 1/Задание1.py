@@ -14,7 +14,7 @@ class Book:
         return self._author
 
     def __str__(self):
-        return f"Книга '{self.name}' написана {self.author}."
+        return f"Автор книги '{self.name}' - {self.author}."
 
     def __repr__(self):
         return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r})"
@@ -62,7 +62,7 @@ class AudioBook(Book):
         self._duration = value
 
     def __str__(self):
-        return f"Аудиокнига '{self.name}' написана {self.author}. Продолжительность: {self.duration:.2f} часов."
+        return f"Аудиокнига '{self.name}' записана {self.author}. Продолжительность: {self.duration:.2f} часов."
 
     def __repr__(self):
         return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r}, duration={self.duration:.2f})"
