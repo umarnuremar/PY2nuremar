@@ -1,95 +1,123 @@
-class Disk:
+class Laptop:
     """
-    Базовый класс, представляющий диск.
+    Базовый класс для ноутбуков
 
     Атрибуты:
-        capacity (int): Емкость диска в гигабайтах.
-        manufacturer (str): Производитель диска.
-        _serial_number (str): Серийный номер диска (инкапсулированный атрибут).
-
-    Методы:
-        get_info(): Возвращает информацию о диске.
+        brand (str): Бренд ноутбука
+        model (str): Модель ноутбука
+        price (float): Цена ноутбука
     """
 
-    def __init__(self, capacity: int, manufacturer: str, serial_number: str) -> None:
+    def __init__(self, brand: str, model: str, price: float):
         """
-        Инициализация объекта Disk.
+        Инициализация ноутбука
 
         Аргументы:
-            capacity (int): Емкость диска в гигабайтах.
-            manufacturer (str): Производитель диска.
-            serial_number (str): Серийный номер диска.
+            brand (str): Бренд ноутбука
+            model (str): Модель ноутбука
+            price (float): Цена ноутбука
         """
-        self.capacity = capacity
-        self.manufacturer = manufacturer
-        self._serial_number = serial_number  # Инкапсулированный атрибут
+        self.brand = brand
+        self.model = model
+        if price < 0:
+            raise ValueError("Цена не может быть отрицательной")
+        self.price = price
 
     def __str__(self) -> str:
         """
-        Возвращает строковое представление объекта Disk.
+        Возвращает строковое представление ноутбука
+
+        Возвращаемое значение:
+            str: Строковое представление ноутбука
         """
-        return f"Disk(capacity={self.capacity}GB, manufacturer={self.manufacturer})"
+        return f"Ноутбук {self.brand} {self.model}, цена: {self.price} USD"
 
     def __repr__(self) -> str:
         """
-        Возвращает официальное строковое представление объекта Disk.
+        Возвращает официальное строковое представление ноутбука
+
+        Возвращаемое значение:
+            str: Официальное строковое представление ноутбука
         """
-        return f"Disk(capacity={self.capacity}, manufacturer='{self.manufacturer}', serial_number='{self._serial_number}')"
+        return f"{self.__class__.__name__}(brand={self.brand!r}, model={self.model!r}, price={self.price!r})"
 
-    def get_info(self) -> str:
+    def display_info(self) -> str:
         """
-        Возвращает информацию о диске.
+        Возвращает информацию о ноутбуке
 
-        Возвращает:
-            str: Информация о диске.
+        Возвращаемое значение:
+            str: Информация о ноутбуке
         """
-        return f"Disk with capacity {self.capacity}GB manufactured by {self.manufacturer}."
+        return f"Бренд: {self.brand}, Модель: {self.model}, Цена: {self.price} USD"
 
-
-class CDDisk(Disk):
-    """
-    Дочерний класс, представляющий CD-диск.
-
-    Атрибуты:
-        write_speed (str): Скорость записи CD-диска.
-
-    Методы:
-        get_info(): Перегруженный метод, возвращающий информацию о CD-диске.
-    """
-
-    def __init__(self, capacity: int, manufacturer: str, serial_number: str, write_speed: str) -> None:
+    def run_application(self, app_name: str):
         """
-        Инициализация объекта CDDisk.
+        Метод для запуска приложения
 
         Аргументы:
-            capacity (int): Емкость диска в гигабайтах.
-            manufacturer (str): Производитель диска.
-            serial_number (str): Серийный номер диска.
-            write_speed (str): Скорость записи CD-диска.
+            app_name (str): Название приложения для запуска
         """
-        super().__init__(capacity, manufacturer, serial_number)
-        self.write_speed = write_speed
+        print(f"Запускаем приложение {app_name} на ноутбуке {self.brand} {self.model}")
+
+
+class GamingLaptop(Laptop):
+    """
+    Класс для игровых ноутбуков
+
+    Атрибуты:
+        brand (str): Бренд ноутбука
+        model (str): Модель ноутбука
+        price (float): Цена ноутбука
+        gpu (str): Модель графической карты
+    """
+
+    def __init__(self, brand: str, model: str, price: float, gpu: str):
+        """
+        Инициализация игрового ноутбука.
+
+        Аргументы:
+            brand (str): Бренд ноутбука
+            model (str): Модель ноутбука
+            price (float): Цена ноутбука
+            gpu (str): Модель графической карты
+        """
+        super().__init__(brand, model, price)
+        self.gpu = gpu
 
     def __str__(self) -> str:
         """
-        Возвращает строковое представление объекта CDDisk.
-        """
-        return f"CDDisk(capacity={self.capacity}GB, manufacturer={self.manufacturer}, write_speed={self.write_speed})"
+        Возвращает строковое представление игрового ноутбука
 
-    def __repr__(self) -> str:
+        Возвращаемое значение:
+            str: Строковое представление игрового ноутбука
         """
-        Возвращает официальное строковое представление объекта CDDisk.
-        """
-        return f"CDDisk(capacity={self.capacity}, manufacturer='{self.manufacturer}', serial_number='{self._serial_number}', write_speed='{self.write_speed}')"
+        return f"Игровой ноутбук {self.brand} {self.model}, цена: {self.price} USD, GPU: {self.gpu}"
 
-    def get_info(self) -> str:
+    def display_info(self) -> str:
         """
-        Перегруженный метод, возвращающий информацию о CD-диске.
+        Возвращает информацию об игровом ноутбуке
 
-        Причина перегрузки: CD-диски имеют дополнительную характеристику - скорость записи,
-        которая должна быть включена в информацию о диске.
+        Возвращаемое значение:
+            str: Информация об игровом ноутбуке
 
-        Возвращает:
-            str: Информация о CD-диске.
+        Причина перегрузки:
+            Добавление информации о графической карте
         """
-        return f"CDDisk with capacity {self.capacity}GB manufactured by {self.manufacturer}, write speed {self.write_speed}."
+        parent_info = super().display_info()  # Вызов метода родительского класса
+        return f"{parent_info}, GPU: {self.gpu}"
+
+
+if __name__ == "__main__":
+    try:
+        gaming_laptop = GamingLaptop("ASUS", "ROG Zephyrus G14", 1499.99, "NVIDIA GeForce RTX 3060")
+        print(gaming_laptop)
+        print(gaming_laptop.display_info())
+        print(repr(gaming_laptop))
+        gaming_laptop.run_application("Cyberpunk 2077")  # Используем унаследованный метод
+    except ValueError as e:
+        print(f"Ошибка: {e}")
+
+    try:
+        gaming_laptop.price = -200
+    except ValueError as e:
+        print(f"Ошибка: {e}")
